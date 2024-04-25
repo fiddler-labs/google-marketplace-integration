@@ -1,0 +1,213 @@
+x-google-marketplace:
+  schemaVersion: v2
+
+  applicationApiVersion: v1beta1
+  # The published version is required and MUST match the tag
+  # of the deployer image
+  publishedVersion: '1.4.24'
+  publishedVersionMetadata:
+    releaseNote: >-
+      A first release.
+  # The images property will be filled in during part 2
+  images:
+    fiddler:
+      properties:
+        global.imageRegistry:
+          default: gcr.io/fiddler-public/fiddler
+          type: REPO_WITH_REGISTRY
+
+    grafana:
+      properties:
+        image.repository:
+          default: gcr.io/fiddler-public/fiddler/grafana
+          type: REPO_WITH_REGISTRY
+        image.tag:
+          default: "9.5.3"
+          type: TAG
+        configmapReload.prometheus.image.repository:
+          default: gcr.io/fiddler-public/fiddler/configmap-reload
+          type: REPO_WITH_REGISTRY
+        configmapReload.prometheus.image.tag:
+          default: "0.12.0"
+          type: TAG
+
+    prometheus:
+      properties:
+        server.image.repository:
+          default: gcr.io/fiddler-public/fiddler/prometheus
+          type: REPO_WITH_REGISTRY
+        server.image.tag:
+          default: "v2.46.0"
+          type: TAG
+
+    loki:
+      properties:
+        image.repository:
+          default: gcr.io/fiddler-public/fiddler/loki
+          type: REPO_WITH_REGISTRY
+        image.tag:
+          default: "2.8.0"
+          type: TAG
+
+
+properties:
+  global.k8s.helmHooks.enabled:
+    type: boolean
+    default: false
+    description: "Do not change value."
+
+  global.hostname:
+    type: string
+    description: "Host name to be used with app deployment"
+
+  global.domain:
+    type: string
+    description: "Domain to be used with app deployment"
+
+  fiddler.version:
+    type: string
+    default: "24.4.1"
+    description: "Version of Fiddler application [Do not change value]."
+
+  grafana.createDbSecret:
+    type: boolean
+    default: true
+    description: "Create grafana db secret [Do not change value]."
+
+  grafana.adminPassword:
+    type: string
+    default: "fiddler"
+    description: "Password of grafana admin user."
+
+  grafana.adminUser:
+    type: string
+    default: "admin"
+    description: "User of grafana admin."
+
+  clickhouse.clickhouseBackup.enabled:
+    type: boolean
+    default: false
+    description: "Enable Clickhouse backup."
+
+  clickhouse.resources.requests.cpu:
+    type: string
+    default: "8"
+    description: "Clickhouse requested CPU value."
+
+  clickhouse.resources.requests.memory:
+    type: string
+    default: "32Gi"
+    description: "Clickhouse requested memory value."
+
+  clickhouse.resources.limits.cpu:
+    type: string
+    default: "8"
+    description: "Clickhouse limits CPU value."
+
+  clickhouse.resources.limits.memory:
+    type: string
+    default: "32Gi"
+    description: "Clickhouse limits memory value."
+
+  zookeeper.resources.requests.cpu:
+    type: string
+    default: "1"
+    description: "Zookeeper requested CPU value."
+
+  zookeeper.resources.requests.memory:
+    type: string
+    default: "2Gi"
+    description: "Zookeeper requested memory value."
+
+  zookeeper.resources.limits.cpu:
+    type: string
+    default: "1"
+    description: "Zookeeper limits CPU value."
+
+  zookeeper.resources.limits.memory:
+    type: string
+    default: "2Gi"
+    description: "Zookeeper limits memory value."
+
+  prometheus.server.replicas:
+    type: integer
+    default: 1
+    description: "Prometheus replicas."
+
+  minio.clickhouseBackup.highAvailability:
+    type: boolean
+    default: false
+    description: "Enable Minio highAvailability."
+
+  minio.resources.requests.cpu:
+    type: string
+    default: "1"
+    description: "Minio requested CPU value."
+
+  minio.resources.requests.memory:
+    type: string
+    default: "4Gi"
+    description: "Minio requested memory value."
+
+  minio.resources.limits.cpu:
+    type: string
+    default: "2"
+    description: "Minio limits CPU value."
+
+  minio.resources.limits.memory:
+    type: string
+    default: "4Gi"
+    description: "Minio limits memory value."
+
+  postgres.deploy:
+    type: boolean
+    default: false
+    description: "Deploy Postgres on gke [Do not change that]."
+
+  postgres.createSecret:
+    type: boolean
+    default: true
+    description: "Create DB secret [Do not change that]."
+
+  postgres.host:
+    type: string
+    description: "IP address of CloudSql postgres instance"
+
+  postgres.db_name:
+    type: string
+    default: "postgres"
+    description: "Database name."
+
+  postgres.user:
+    type: string
+    description: "Database user name."
+
+  postgres.password:
+    type: string
+    description: "Database user password."
+
+  postgres.auth.username:
+    type: string
+    description: "Database user name."
+
+  postgres.auth.password:
+    type: string
+    description: "Database user password."
+
+  name:
+    type: string
+    default: "fiddler"
+    description: "Application name"
+    x-google-marketplace:
+      type: NAME
+
+  namespace:
+    type: string
+    default: "default"
+    description: "k8s namespace of where fiddler will be deployed"
+    x-google-marketplace:
+      type: NAMESPACE
+
+required:
+  - name
+  - namespace
