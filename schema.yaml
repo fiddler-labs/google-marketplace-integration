@@ -211,3 +211,10 @@ properties:
 required:
   - name
   - namespace
+  - postgres.host
+  - postgres.user
+  - postgres.password
+  - postgres.auth.username
+  - postgres.auth.password
+  - global.hostname
+  - global.domain
