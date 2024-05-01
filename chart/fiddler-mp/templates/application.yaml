@@ -10,7 +10,7 @@ metadata:
 spec:
   descriptor:
     type: Fiddler
-    version: '1.4.24'
+    version: '24.4.1'
   selector:
     matchLabels:
       app.kubernetes.io/name: "{{ .Release.Name }}"

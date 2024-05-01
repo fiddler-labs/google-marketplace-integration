@@ -1,0 +1,11 @@
+
+fiddler:
+  version: 24.4.1
+
+grafana:
+  configmapReload:
+    prometheus:
+      image:
+        tag: 0.12.0
+
+

@@ -4,7 +4,7 @@ x-google-marketplace:
   applicationApiVersion: v1beta1
   # The published version is required and MUST match the tag
   # of the deployer image
-  publishedVersion: '1.4.24'
+  publishedVersion: '24.4.1'
   publishedVersionMetadata:
     releaseNote: >-
       A first release.
@@ -19,30 +19,20 @@ x-google-marketplace:
         properties:
           image.repository:
             type: REPO_WITH_REGISTRY
-          image.tag:
-            default: "9.5.3"
-            type: TAG
           configmapReload.prometheus.image.repository:
             type: REPO_WITH_REGISTRY
           configmapReload.prometheus.image.tag:
-            default: "0.12.0"
             type: TAG
 
       prometheus:
         properties:
           server.image.repository:
             type: REPO_WITH_REGISTRY
-          server.image.tag:
-            default: "v2.46.0"
-            type: TAG
 
       loki:
         properties:
           image.repository:
             type: REPO_WITH_REGISTRY
-          image.tag:
-            default: "2.8.0"
-            type: TAG
 
 
 properties:
