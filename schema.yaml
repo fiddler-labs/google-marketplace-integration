@@ -14,11 +14,52 @@ x-google-marketplace:
       properties:
         global.imageRegistry:
           type: REPO_WITH_REGISTRY
+        
+        global.telemetry.metrics.nodeExporter.image.repository:
+          type: REPO_WITH_REGISTRY
+        
+        global.telemetry.metrics.nodeExporter.image.tag:
+          type: TAG
+
+        
+        global.telemetry.logging.fluentBit.image.repository:
+          type: REPO_WITH_REGISTRY
+        
+        global.telemetry.logging.fluentBit.image.tag:
+          type: TAG
+      
+      redis:
+        properties:
+          image.repository:
+            type: REPO_WITH_REGISTRY
+          image.tag:
+            type: TAG
+      
+      envoy:
+        properties:
+          image.repository:
+            type: REPO_WITH_REGISTRY
+          image.tag:
+            type: TAG
+        
+      clickhouse:
+        properties:
+          image.repository:
+            type: REPO_WITH_REGISTRY
+          image.tag:
+            type: TAG
+          clickhouse.zookeeper.image.repository: 
+            type: REPO_WITH_REGISTRY
+          clickhouse.zookeeper.image.tag:
+            type: TAG
+
 
       grafana:
         properties:
           image.repository:
             type: REPO_WITH_REGISTRY
+          image.tag:
+            type: TAG
           configmapReload.prometheus.image.repository:
             type: REPO_WITH_REGISTRY
           configmapReload.prometheus.image.tag:
@@ -28,11 +69,30 @@ x-google-marketplace:
         properties:
           server.image.repository:
             type: REPO_WITH_REGISTRY
+          server.image.tag:
+            type: TAG
 
       loki:
         properties:
           image.repository:
             type: REPO_WITH_REGISTRY
+          image.tag:
+            type: TAG
+
+      minio:
+        properties:
+          image.repository:
+            type: REPO_WITH_REGISTRY
+          image.tag:
+            type: TAG
+      
+      rabbitmq:
+        properties:
+          image.repository:
+            type: REPO_WITH_REGISTRY
+          image.tag:
+            type: TAG
+
 
 
 properties:
