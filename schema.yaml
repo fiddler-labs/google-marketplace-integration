@@ -4,7 +4,7 @@ x-google-marketplace:
   applicationApiVersion: v1beta1
   # The published version is required and MUST match the tag
   # of the deployer image
-  publishedVersion: '24.4.1'
+  publishedVersion: '24.4.1' #TAG of all images
   publishedVersionMetadata:
     releaseNote: >-
       A first release.
@@ -17,15 +17,19 @@ x-google-marketplace:
         fiddler.version:
           type: TAG
 
-    nodeExporter:
+    prometheus-node-exporter:
       properties:
+        global.telemetry.metrics.nodeExporter.image.registry:
+          type: REGISTRY
         global.telemetry.metrics.nodeExporter.image.repository:
-          type: REPO_WITH_REGISTRY
+          type: REPO_WITHOUT_REGISTRY
         global.telemetry.metrics.nodeExporter.image.tag:
           type: TAG
 
-    fluentBit:
+    fluent-bit:
       properties:
+        global.telemetry.logging.fluentBit.image.registry:
+          type: REGISTRY
         global.telemetry.logging.fluentBit.image.repository:
           type: REPO_WITH_REGISTRY
         global.telemetry.logging.fluentBit.image.tag:
@@ -33,22 +37,28 @@ x-google-marketplace:
     
     webapp: 
       properties:
+        webapp.image.registry:
+          type: REGISTRY
         webapp.image.repository:
-          type: REPO_WITH_REGISTRY
+          type: REPO_WITHOUT_REGISTRY
         webapp.image.tag:
           type: TAG
 
-    data: 
+    data_service: 
       properties:
+        data.image.registry:
+          type: REGISTRY
         data.image.repository:
-          type: REPO_WITH_REGISTRY
+          type: REPO_WITHOUT_REGISTRY
         data.image.tag:
           type: TAG
           
     redis:
       properties:
+        image.registry:
+          type: REGISTRY
         image.repository:
-          type: REPO_WITH_REGISTRY
+          type: REPO_WITHOUT_REGISTRY
         image.tag:
           type: TAG
     
@@ -61,18 +71,22 @@ x-google-marketplace:
       
     clickhouse:
       properties:
-        clickhouse.clickhouseBackup.image:
-          type: REPO_WITH_REGISTRY
-        clickhouse.clickhouseBackup.version:
-          type: TAG
-
         image.repository:
           type: REPO_WITH_REGISTRY
         image.tag:
           type: TAG
-
-        clickhouse.zookeeper.image.repository: 
+        
+        # clickhouse.clickhouseBackup.image:
+        #   type: REPO_WITH_REGISTRY
+        # clickhouse.clickhouseBackup.version:
+        #   type: TAG
+    
+    zookeeper:
+      properties:
+        clickhouse.zookeeper.image.registry: 
           type: REPO_WITH_REGISTRY
+        clickhouse.zookeeper.image.repository: 
+          type: REPO_WITHOUT_REGISTRY
         clickhouse.zookeeper.image.tag:
           type: TAG
 
@@ -83,9 +97,12 @@ x-google-marketplace:
           type: REPO_WITH_REGISTRY
         image.tag:
           type: TAG
-        configmapReload.prometheus.image.repository:
+    
+    configmap-reload:
+      properties:
+        grafana.configmapReload.prometheus.image.repository:
           type: REPO_WITH_REGISTRY
-        configmapReload.prometheus.image.tag:
+        grafana.configmapReload.prometheus.image.tag:
           type: TAG
 
     prometheus:

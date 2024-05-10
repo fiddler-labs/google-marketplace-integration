@@ -1,11 +1,106 @@
 
+# fiddler:
+#   version: 24.4.1
+
+# grafana:
+#   configmapReload:
+#     prometheus:
+#       image:
+#         tag: 0.12.0
+
+
+global:
+  telemetry:
+    metrics:
+     nodeExporter:
+       image:
+         registry: null
+         repository: null
+         tag: null
+       
+    logging:
+      fluentBit:
+       image:
+         registry: null
+         repository: null
+         tag: null
+
+  imageRegistry: null
+
 fiddler:
   version: 24.4.1
+
+webapp:
+  image:
+    registry: null
+    repository: null
+    tag: null
+
+data:
+  image:
+    registry: null
+    repository: null
+    tag: null
+
+redis:
+  image:
+    registry: null
+    repository: null
+    tag: null
 
 grafana:
   configmapReload:
     prometheus:
       image:
-        tag: 0.12.0
+        repository: null
+        tag: null
+  image:
+    repository: null
+    tag: null
 
+envoy:
+  image:
+    registry: null
+    repository: null
+    tag: null
 
+clickhouse:
+  image:
+    registry: null
+    repository: null
+    tag: null
+  clickhouseBackup:
+    image: null
+    version: null
+
+  zookeeper:
+    image:
+      registry: null
+      repository: null
+      tag: null
+
+prometheus:
+  configmapReload:
+    prometheus:
+      enabled: false
+  server:
+    image:
+      repository: null
+      tag: null
+
+loki:
+  image:
+    repository: null
+    tag: null
+
+minio:
+  image:
+    registry: null
+    repository: null
+    tag: null
+
+rabbitmq:
+  image:
+    registry: null
+    repository: null
+    tag: null
