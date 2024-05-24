@@ -10,274 +10,189 @@ x-google-marketplace:
       A first release.
   # The images property will be filled in during part 2
   images:
-    '':
+    postgres_db:
       properties:
-        global.imageRegistry:
-          type: REPO_WITH_REGISTRY
-        fiddler.version:
-          type: TAG
-
+        postgresImage:
+          type: FULL
+    
+    grafana:
+      properties:
+        grafanaImage:
+          type: FULL    
+          
+    prometheus:
+      properties:
+        prometheusImage:
+          type: FULL
+    
+    admin_service:
+      properties:
+        adminServiceImage:
+          type: FULL
+    
     prometheus-node-exporter:
       properties:
-        global.telemetry.metrics.nodeExporter.image.registry:
-          type: REGISTRY
-        global.telemetry.metrics.nodeExporter.image.repository:
-          type: REPO_WITHOUT_REGISTRY
-        global.telemetry.metrics.nodeExporter.image.tag:
-          type: TAG
-
+        prometheusNodeExporterImage:
+          type: FULL
+    
     fluent-bit:
       properties:
-        global.telemetry.logging.fluentBit.image.registry:
-          type: REGISTRY
-        global.telemetry.logging.fluentBit.image.repository:
-          type: REPO_WITH_REGISTRY
-        global.telemetry.logging.fluentBit.image.tag:
-          type: TAG
+        fluentBitImage:
+          type: FULL
     
-    webapp: 
+    data_service:
       properties:
-        webapp.image.registry:
-          type: REGISTRY
-        webapp.image.repository:
-          type: REPO_WITHOUT_REGISTRY
-        webapp.image.tag:
-          type: TAG
-
-    data_service: 
-      properties:
-        data.image.registry:
-          type: REGISTRY
-        data.image.repository:
-          type: REPO_WITHOUT_REGISTRY
-        data.image.tag:
-          type: TAG
-          
+        dataServiceImage:
+          type: FULL
+    
     redis:
       properties:
-        image.registry:
-          type: REGISTRY
-        image.repository:
-          type: REPO_WITHOUT_REGISTRY
-        image.tag:
-          type: TAG
+        redisImage:
+          type: FULL   
     
     envoy:
       properties:
-        image.repository:
-          type: REPO_WITH_REGISTRY
-        image.tag:
-          type: TAG
-      
-    clickhouse:
+        envoyImage:
+          type: FULL    
+    
+    webapp:
       properties:
-        image.repository:
-          type: REPO_WITH_REGISTRY
-        image.tag:
-          type: TAG
-        
-        # clickhouse.clickhouseBackup.image:
-        #   type: REPO_WITH_REGISTRY
-        # clickhouse.clickhouseBackup.version:
-        #   type: TAG
+        webappImage:
+          type: FULL    
     
     zookeeper:
       properties:
-        clickhouse.zookeeper.image.registry: 
-          type: REPO_WITH_REGISTRY
-        clickhouse.zookeeper.image.repository: 
-          type: REPO_WITHOUT_REGISTRY
-        clickhouse.zookeeper.image.tag:
-          type: TAG
-
-
-    grafana:
-      properties:
-        image.repository:
-          type: REPO_WITH_REGISTRY
-        image.tag:
-          type: TAG
+        zookeeperImage:
+          type: FULL    
     
-    configmap-reload:
+    clickhouse:
       properties:
-        grafana.configmapReload.prometheus.image.repository:
-          type: REPO_WITH_REGISTRY
-        grafana.configmapReload.prometheus.image.tag:
-          type: TAG
-
-    prometheus:
-      properties:
-        server.image.repository:
-          type: REPO_WITH_REGISTRY
-        server.image.tag:
-          type: TAG
-
+        clickhouseImage:
+          type: FULL    
+    
     loki:
       properties:
-        image.repository:
-          type: REPO_WITH_REGISTRY
-        image.tag:
-          type: TAG
-
+        lokiImage:
+          type: FULL    
+    
     minio:
       properties:
-        image.repository:
-          type: REPO_WITH_REGISTRY
-        image.tag:
-          type: TAG
+        minioImage:
+          type: FULL    
     
     rabbitmq:
       properties:
-        image.repository:
-          type: REPO_WITH_REGISTRY
-        image.tag:
-          type: TAG
-
-
+        rabbitmqImage:
+          type: FULL
 
 properties:
-  global.k8s.helmHooks.enabled:
-    type: boolean
-    default: false
-    description: "Do not change value."
 
-  global.hostname:
+  hostName:
     type: string
-    description: "Host name to be used with app deployment"
+    description: "Host name to be used with app deployment"      
 
-  global.domain:
+  domain:
     type: string
     description: "Domain to be used with app deployment"
 
-  # fiddler.version:
-  #   type: string
-  #   default: "24.4.1"
-  #   description: "Version of Fiddler application [Do not change value]."
-
-  grafana.createDbSecret:
-    type: boolean
-    default: true
-    description: "Create grafana db secret [Do not change value]."
-
-  grafana.adminPassword:
+  grafanaAdminPassword:
     type: string
     default: "fiddler"
     description: "Password of grafana admin user."
+    base64: True
+    x-google-marketplace:
+      type: MASKED_FIELD
 
-  grafana.adminUser:
+  grafanaAdminUser:
     type: string
     default: "admin"
     description: "User of grafana admin."
+    base64: True
 
-  clickhouse.clickhouseBackup.enabled:
-    type: boolean
-    default: false
-    description: "Enable Clickhouse backup."
-
-  clickhouse.resources.requests.cpu:
+  clickhouseRequestsCPU:
     type: string
     default: "8"
     description: "Clickhouse requested CPU value."
 
-  clickhouse.resources.requests.memory:
+  clickhouseRequestsMemory:
     type: string
     default: "32Gi"
     description: "Clickhouse requested memory value."
 
-  clickhouse.resources.limits.cpu:
+  clickhouseLimitsCPU:
     type: string
     default: "8"
     description: "Clickhouse limits CPU value."
 
-  clickhouse.resources.limits.memory:
+  clickhouseLimitsMemory:
     type: string
     default: "32Gi"
     description: "Clickhouse limits memory value."
 
-  zookeeper.resources.requests.cpu:
+  zookeeperRequestsCPU:
     type: string
     default: "1"
     description: "Zookeeper requested CPU value."
 
-  zookeeper.resources.requests.memory:
+  zookeeperRequestsMemory:
     type: string
     default: "2Gi"
     description: "Zookeeper requested memory value."
 
-  zookeeper.resources.limits.cpu:
+  zookeeperLimitsCPU:
     type: string
     default: "1"
     description: "Zookeeper limits CPU value."
 
-  zookeeper.resources.limits.memory:
+  zookeeperLimitsMemory:
     type: string
     default: "2Gi"
     description: "Zookeeper limits memory value."
 
-  prometheus.server.replicas:
+  prometheusServerReplicas:
     type: integer
     default: 1
     description: "Prometheus replicas."
 
-  minio.clickhouseBackup.highAvailability:
+  minioClickhouseBackupHighAvailability:
     type: boolean
     default: false
     description: "Enable Minio highAvailability."
 
-  minio.resources.requests.cpu:
+  minioRequestsCPU:
     type: string
     default: "1"
     description: "Minio requested CPU value."
 
-  minio.resources.requests.memory:
+  minioRequestsMemory:
     type: string
     default: "4Gi"
     description: "Minio requested memory value."
 
-  minio.resources.limits.cpu:
+  minioLimitsCPU:
     type: string
     default: "2"
     description: "Minio limits CPU value."
 
-  minio.resources.limits.memory:
+  minioLimitsMemory:
     type: string
     default: "4Gi"
     description: "Minio limits memory value."
 
-  postgres.deploy:
-    type: boolean
-    default: false
-    description: "Deploy Postgres on gke [Do not change that]."
-
-  postgres.createSecret:
-    type: boolean
-    default: true
-    description: "Create DB secret [Do not change that]."
-
-  postgres.host:
+  postgresHost:
     type: string
     description: "IP address of CloudSql postgres instance"
 
-  postgres.db_name:
-    type: string
-    default: "postgres"
-    description: "Database name."
-
-  postgres.user:
+  postgresUser:
     type: string
     description: "Database user name."
 
-  postgres.password:
+  postgresPassword:
     type: string
     description: "Database user password."
-
-  postgres.auth.username:
-    type: string
-    description: "Database user name."
-
-  postgres.auth.password:
-    type: string
-    description: "Database user password."
+    base64: True
+    x-google-marketplace:
+      type: MASKED_FIELD
 
   name:
     type: string
@@ -296,10 +211,8 @@ properties:
 required:
   - name
   - namespace
-  - postgres.host
-  - postgres.user
-  - postgres.password
-  - postgres.auth.username
-  - postgres.auth.password
-  - global.hostname
-  - global.domain
+  - postgresHost
+  - postgresUser
+  - postgresPassword
+  - hostName
+  - domain

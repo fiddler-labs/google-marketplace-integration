@@ -1,6 +1,0 @@
-dependencies:
-- name: fiddler
-  repository: https://helm.fiddler.ai/stable/fiddler
-  version: 1.7.8
-digest: sha256:3ef01e12cce889426e6ae3f991e3b58ecfb1d26656947f83e3b8bf2daebe5024
-generated: "2024-04-22T22:13:16.44224+02:00"
